@@ -34,7 +34,25 @@ General steps:
          1. Use libraries like FAISS, Annoy, or HNSWlib for large-scale and high-dimensional datasets
          2. Implement techniques like Locality Sensitive Hashing (LSH) for faster lookups
    5. Querying
-      1. 
+      1. Similarity Search: 
+         1. Use metrics like cosine similarity
+         2. Top-K Retrieval: Rank vectors based on similarity and return the top-k results
+         3. Metadata Filtering: Allow queries to filter vectors based on associated metadata (e.g. label, category, timestamp)
+   6. Implement CRUD Operations
+      1. Add: Insert new vectors along with metadata into the db
+      2. Get: Retrieve vectors or embeddings by ID
+      3. Delete: Remove a vector by ID
+      4. Update: Modify existing vectors or their metadata
+   7. Optimize for Scale
+      1. Dimensionsality Reduction: Apply techniques like PCA or TSNE to reduce the vector's dimensionality
+      2. Parallelism: Use multithreading or multiprocessing for similarity computation
+      3. Caching: Cache frequently queried results or embeddings
+   8. Build a Query Interface
+   9. Persistence and Resilience
+   10. Test and Validate
+   11. Extend with Advanced Features
+   12. Monitor and Maintain
+   
 
 ## Installation
 TODO - How to install your project? npm install? make? make re?
