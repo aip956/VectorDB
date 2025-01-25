@@ -66,6 +66,15 @@ General steps:
 12. Monitor and Maintain
    
 
+   Datastructures used for the vector db
+   db operations
+   explain choices
+   why different from relational and noSQL db
+   duckdb
+   minimal db operations
+   simple, but follows the principles
+   
+
 ## Installation
 TODO - How to install your project? npm install? make? make re?
 
