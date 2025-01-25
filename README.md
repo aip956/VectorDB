@@ -8,50 +8,62 @@ TODO - What is the problem? And where is the challenge?
 System to store, manage, and query high-dimensional vectors
 General steps:
 1. Understand requirements
-   1. Data Type
-   2. Core Features
-      1. Insert vectors; optional metadata
-      2. Query vectors based on similarity (e.g. nearest neighbor search)
-      3. Update or delete vectors
-      4. Support metadata filtering
-   3. Performance Goals: Fast queries and scalability (large datasets)
+   1. Task Objective: Build a hybrid vector db combining KD-Trees and LSH for efficient similarity search in high-dimensional space
+   2. Use Case: Multimedia content search and retrieval (e.g. image/audio similarity, recommendation engines)
+   3. Core Features:
+      1. Store high-dimensional vectors with metadata
+      2. Perform nearest-neighbor queries quickly
+      3. Support distributed and resilient architectures for scalability
+
 2. Data Ingestion
-   1. Initial Prep
-      1. Define the format of input data: text, numbers, images, etc.
-      2. Decide on the method to convert inputs to vectors (embedding generation)
-   2. Embedding Generation
-      1. Determine model (OpenAI Embeddings, Hugging Face Transformers, or custom-trained models to generate vectors)
-      2. Ensure vectors have a fixed dimension and are normalized if required by similarity metric
-   3. Data Storage
-      1. Choose a data stucture or storage mechanism
-         1. In-Memory Storage: Use Python dictionaries or NumPy arrays for small-scale datasets
-         2. Persistent Storage: Use file-based formats (e.g. JSON) or databases (e.g. SQLite, PostgreSQL) to persist vectors
-         3. Hybrid Storage: Keep frequently accesses vectors in memory and the rest on disk
-   4. Indexing
-      1. Brute Force (baseline): Compare the query vector with all stored vectors. Simple, but slow.
-      2. Tree-based Structures: KD-Trees or Ball-Trees for low-dimensional data
-      3. Approximate Nearest Neighbors (ANN)
-         1. Use libraries like FAISS, Annoy, or HNSWlib for large-scale and high-dimensional datasets
-         2. Implement techniques like Locality Sensitive Hashing (LSH) for faster lookups
-   5. Querying
-      1. Similarity Search: 
-         1. Use metrics like cosine similarity
-         2. Top-K Retrieval: Rank vectors based on similarity and return the top-k results
-         3. Metadata Filtering: Allow queries to filter vectors based on associated metadata (e.g. label, category, timestamp)
-   6. Implement CRUD Operations
-      1. Add: Insert new vectors along with metadata into the db
-      2. Get: Retrieve vectors or embeddings by ID
-      3. Delete: Remove a vector by ID
-      4. Update: Modify existing vectors or their metadata
-   7. Optimize for Scale
-      1. Dimensionsality Reduction: Apply techniques like PCA or TSNE to reduce the vector's dimensionality
-      2. Parallelism: Use multithreading or multiprocessing for similarity computation
-      3. Caching: Cache frequently queried results or embeddings
-   8. Build a Query Interface
-   9. Persistence and Resilience
-   10. Test and Validate
-   11. Extend with Advanced Features
-   12. Monitor and Maintain
+   1. Input Constraints
+      1. Vectors must have a fixed length
+      2. Vectors must be normalized (e.g. to unit length)
+      3. Embedding Generation
+         1. Use a pre-trained embedding model (e.g. PyTorch for deep learning embeddings)
+         2. Example: Convert images into feature vectors using models like ResNet
+
+3. Data Storage
+   1. Hybrid Storage:
+      1. Use KD-Trees for partitioning the space into manageable regions
+      2. Use LSH for hashing similar vectors into buckets for approximate seach
+   2. Persistent Storage
+      1. Store metadata and embeddings in FoundationDB for durability and distributed access
+
+4. Indexing
+   1. Tree-Based Indexing (KD-Trees):
+      1. Use KD-Trees to partition the vector space hierarchically
+      2. e.g. SciPy KDTree
+   2. Hash-Based Indexing (LSH)
+      1. Hash similar vectors into the same bucket
+      2. e.g. Use a library like FAISS or implement custom LSH functions for approximate nearest neighbor (ANN) search
+   3. Combined Use
+      1. Use KD-Trees for initial space partitioning
+      2. Within each partition, use LSH to bucket similar vectors and retrieve them quickly
+
+5. Querying
+   1. Similarity Search: Use cosine similarity or Euclidean distance to compare vectors
+   2. Top-K Retrieval: Retrieve the k most similar vectors based on similarity score
+   3. Metadata Filtering: Add filters for metadata constraints (e.g. vector tags, labels)
+
+6. Implement CRUD Operations
+      1. Add: Insert new vectors into the KD-Tree and LSH buckets
+      2. Get: Retrieve vectors or metadata by ID
+      3. Delete: Remove vectors from both the KD-Tree and LSH buckets
+      4. Update: Modify vector metadata or re-index vectors
+
+7. Optimize for Scale
+   1. Sharding
+      1. Distribute KD-Tree partitions and LSH buckets across multiple searvers for load balancing
+      2. Use metadata to determine which shard stores a specific vector
+   2. Distributed Systems
+      1. Use Docker and Kubernetes to deploy the system across a cluster
+      2. Leverage FoundationDB for distributed metadata storage
+8. Build a Query Interface
+9. Persistence and Resilience
+10. Test and Validate
+11. Extend with Advanced Features
+12. Monitor and Maintain
    
 
 ## Installation
