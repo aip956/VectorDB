@@ -1,0 +1,6 @@
+# Psuedocode for vector db
+
+
+Initialize; set up data structures and components (KD-Tree,
+LSH buckets, storage for vectors and metadata)
+

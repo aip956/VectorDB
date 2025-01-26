@@ -73,6 +73,7 @@ General steps:
    duckdb
    minimal db operations
    simple, but follows the principles
+   showcase how it works; use cases, scenarios; we can create our own data; looking for the concepts
    
 
 ## Installation
